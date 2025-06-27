@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ msg: "رمز اشتباه" });
 
-    const token = jwt.sign({ username }, "secret");
+    const token = jwt.sign({ username }, process.env.JWT_SECRET);
     res.json({ token });
   } catch (err) {
     console.error(err);

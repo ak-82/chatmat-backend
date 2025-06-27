@@ -5,12 +5,13 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
 const Message = require("./models/Message");
+require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -139,5 +140,5 @@ io.on("connection", (socket) => {
 });
 
 // شروع سرور
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
