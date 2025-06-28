@@ -1,4 +1,6 @@
 require('dotenv').config();
+const PORT = process.env.PORT || 5000;
+const CLIENT_URL = process.env.CLIENT_URL;
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
@@ -11,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:5173", "https://your-frontend-domain.com"],
+    origin: CLIENT_URL,
     methods: ["GET", "POST"],
   },
 });
@@ -21,9 +23,7 @@ connectDB();
 
 
 const corsOptions = {
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: CLIENT_URL, // 🔁 آدرس دامنه فرانتت
   credentials: true, // اگر کوکی/توکن میخوای ارسال کنی
 };
 
@@ -147,5 +147,4 @@ io.on("connection", (socket) => {
 });
 
 // شروع سرور
-const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
