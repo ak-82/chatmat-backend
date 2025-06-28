@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: CLIENT_URL,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -23,10 +23,10 @@ connectDB();
 
 
 const corsOptions = {
-  origin: CLIENT_URL, // 🔁 آدرس دامنه فرانتت
+  origin: "*", // 🔁 آدرس دامنه فرانتت
   credentials: true, // اگر کوکی/توکن میخوای ارسال کنی
 };
-
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
 
