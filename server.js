@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
@@ -5,7 +6,6 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
 const Message = require("./models/Message");
-require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
